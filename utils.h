@@ -9,20 +9,20 @@
 // Structs
 
 struct littleEnigma {
-    struct wheel** wheels;
-    int wheelsCount;
+    struct wheel** wheels; // Doble puntero, 
+    int wheelsCount; // Dice cuántas wheels hay, o sea que es el tamaño del array e involucra que las letras a encriptar van a pasar por esta cantidad de wheels
 };
 
-struct wheel {
-    struct letter* first;
-    char* alphabet;
-    int count;
+struct wheel { // Es una lista circular es decir que el último elemento apunta al primero.
+    struct letter* first; // son los nodos de la lista circular con 3 campos
+    char* alphabet; // guarda una copia de la permutación del alfabeto
+    int count; // cantidad de letras de este alfabeto
 };
 
 struct letter {
-    char letter;
-    int  position;
-    struct letter* next;
+    char letter; // guarda la letra
+    int  position; // es la posición para indicar la posicion de la letra dentro de la permutación
+    struct letter* next; // siguiente letra
 };
 
 // Little Enigma
