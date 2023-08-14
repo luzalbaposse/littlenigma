@@ -7,7 +7,7 @@ Requiere: src es un puntero a un arreglo de caracteres terminado en '\0'.
 Devuelve: la cantidad de caracteres en src sin contar el '\0'.
 */
     int i;
-    while(src[i] != '\0'){
+    while(src[i] != '\0') {
         i++;
     }
     return i;
@@ -20,7 +20,7 @@ char* strDup(char* src) {
     */
     int i = 0;
     char* aux = (char*)malloc(sizeof(char) * (strLen(src)+1)); 
-    while (src[i] != '\0'){        
+    while(src[i] != '\0') {
         aux[i] = src[i];
         i++;
     }
@@ -79,8 +79,12 @@ char* littleEnigmaDecrypt(struct littleEnigma* le, char* code) {
     Genera una nueva string, resultado de la decodificación de la string pasada por parámetro. Esta 
     última no debe ser modificada. Aplica a cada caracter de la función decryptOneLetter.
     */
-
-    return 0;
+    char* aux = (char*)malloc(sizeof(char) * (strLen(code)+1)); // Pido memoria para la nueva string    
+    for(int i=0; i<strLen(code); i++) { // Recorro la string
+        aux[i] = decryptOneLetter(le, code[i]); // Decodifico el caracter actual
+    }
+    aux[strLen(code)] = '\0'; // Le agrego el caracter nulo
+    return aux; // Retorno la nueva string
 }
 
 void littleEnigmaDelete(struct littleEnigma* le) {
@@ -138,26 +142,29 @@ void rotateWheel(struct wheel* w, int steps) {
 ningún valor, ya que modifica la estructura w.
     */
     for(int i=0; i<steps; i++) {
-        w->first = w->first->next;
-        
+        w->first = w->first->next;  
     }
-
-
 }
-
-void rotateWheels(struct wheel** wheels, int wheelsCount) {
-    /*
-    Recorre el arreglo de ruedas y rota cada una de ellas una posición. Si la rueda llega al final
-    */
-    for(int i=0; i<wheelsCount; i++) { // recorro las ruedas
-        struct wheel* current = wheels[i];  // me paro en la rueda actual
-        rotateWheel(current, 1); // roto la rueda actual
-        if(current->first->position == 0) { // si la rueda actual llego al final
-            rotateWheel(current, 1); // roto la rueda actual
+void rotateWheels(struct wheel** w, int count) {
+    for (int i = 0; i < count; i++) {
+        int steps = 1;  // Cantidad de pasos para girar el wheel actual
+        struct wheel* currentWheel = w[i];
+        
+        if (currentWheel->first->position == currentWheel->count - 1) {
+            // Si el primer nodo llegó al final, giramos el siguiente wheel
+            steps++;
+            for (int j = i + 1; j < count; j++) {
+                struct wheel* nextWheel = w[j];
+                if (nextWheel->first->position == nextWheel->count - 1) {
+                    steps++;
+                } else {
+                    break;
+                }
+            }
         }
+        
+        rotateWheel(currentWheel, steps);
     }
-    
-
 }
 
 void wheelDelete(struct wheel* w) {
@@ -248,4 +255,56 @@ char decryptOneLetter(struct littleEnigma* le, char letter) {
     }
     rotateWheels(le->wheels, le->wheelsCount); // roto las ruedas
     return letter;
+}
+
+int main(){
+
+    // probar rotatewheel
+    char* alphabet3 = "ABCDE";
+    struct wheel* w3 = makeWheelFromString(alphabet3);
+    printf("5 letras: ");
+    wheelPrint(w3);
+    printf("\n");
+    printf("rotado 5 steps:");
+    rotateWheel(w3, 5);
+    wheelPrint(w3);
+    printf("\n");
+    printf("rotado 1 step:");
+    rotateWheel(w3, 1);
+    wheelPrint(w3);
+    printf("\n");
+    printf("rotado en 2 steps:");
+    rotateWheel(w3,1);
+    wheelPrint(w3);
+    printf("\n");
+    printf("rotado en 3 steps:");
+    rotateWheel(w3,1);
+    wheelPrint(w3);
+    printf("\n");
+
+    // pruebo rotateWheels
+
+     // Crear las letras y las ruedas
+    struct letter letterA = {'A', 0, NULL};
+    struct letter letterB = {'B', 2, NULL};
+    struct letter letterC = {'C', 25, NULL};
+
+    struct wheel wheel1 = {&letterA, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
+    struct wheel wheel2 = {&letterB, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
+    struct wheel wheel3 = {&letterC, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
+
+    // Crear el arreglo de punteros a ruedas
+    struct wheel* wheels[] = {&wheel1, &wheel2, &wheel3};
+
+    // Llamar a la función para rotar las ruedas
+    rotateWheels(wheels, 3);
+
+    // Imprimir las letras y posiciones finales después de la rotación
+    for (int i = 0; i < 3; i++) {
+        printf("Wheel %d: Letter %c (Position %d)\n", i+1, wheels[i]->first->letter, wheels[i]->first->position);
+    }
+
+    return 0;
+
+
 }

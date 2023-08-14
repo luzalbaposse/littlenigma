@@ -86,42 +86,4 @@ disco.
     rotateWheel(w1, 26);
     wheelPrint(w1);
     printf("\n");
-
-    // littleEnigmaEncrypt y littleEnigmaDecrypt
-    printf("littleEnigmaEncrypt y littleEnigmaDecrypt\n");
-    char* message1 = "";
-    char* message2 = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    char* message3 = "ABCDEFGHIJ";
-    char* message4 = "ABCDEFGHIJ";
-    char* message5 = "ABCDEFGHIJ";
-
-    char* alphabetPermutation1[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ", NULL};
-    char* alphabetPermutation2[] = {"ABCDEFGHIJ", "BCDEFGHIJA", "CDEFGHIJAB", "DEFGHIJABC", "EFGHIJABCD", "FGHIJABCDE", "GHIJABCDEF", "HIJABCDEFG", "IJABCDEFGH", "JABCDEFGHI", NULL};
-    char* alphabetPermutation3[] = {"ABCDEFGHIJ", "BCDEFGHIJA", "CDEFGHIJAB", "DEFGHIJABC", "EFGHIJABCD", "FGHIJABCDE", "GHIJABCDEF", "HIJABCDEFG", "IJABCDEFGH", "JABCDEFGHI", NULL};
-    char* alphabetPermutation4[] = {"ABCDEFGHIJ", "BCDEFGHIJA", "CDEFGHIJAB", "DEFGHIJABC", "EFGHIJABCD", "FGHIJABCDE", "GHIJABCDEF", "HIJABCDEFG", "IJABCDEFGH", "JABCDEFGHI", NULL};
-    char* alphabetPermutation5[] = {"ABCDEFGHIJ", "BCDEFGHIJA", "CDEFGHIJAB", "DEFGHIJABC", "EFGHIJABCD", "FGHIJABCDE", "GHIJABCDEF", "HIJABCDEFG", "IJABCDEFGH", "JABCDEFGHI", NULL};
-    struct littleEnigma* le1 = littleEnigmaNew(alphabetPermutation1, 1);
-    struct littleEnigma* le2 = littleEnigmaNew(alphabetPermutation2, 10);
-    struct littleEnigma* le3 = littleEnigmaNew(alphabetPermutation3, 10);
-    struct littleEnigma* le4 = littleEnigmaNew(alphabetPermutation4, 10);
-    struct littleEnigma* le5 = littleEnigmaNew(alphabetPermutation5, 10);
-
-    printf("1. Encriptar y desencriptar un mensaje de 0 caracteres: ");
-    printf("Encriptado: %s\n", littleEnigmaEncrypt(le1, message1));
-    printf("Desencriptado: %s\n", littleEnigmaDecrypt(le1, message1));
-    printf("2. Encriptar y desencriptar un mensaje de 35 caracteres iguales con una m´aquina de un solo disco: ");
-    printf("Encriptado: %s\n", littleEnigmaEncrypt(le2, message2));
-    printf("Desencriptado: %s\n", littleEnigmaDecrypt(le2, message2));
-    printf("3. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de tres discos: ");
-    printf("Encriptado: %s\n", littleEnigmaEncrypt(le3, message3));
-    printf("Desencriptado: %s\n", littleEnigmaDecrypt(le3, message3));
-    printf("4. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de cinco discos: ");
-    printf("Encriptado: %s\n", littleEnigmaEncrypt(le4, message4));
-    printf("Desencriptado: %s\n", littleEnigmaDecrypt(le4, message4));
-    printf("5. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de ocho discos: ");
-    printf("Encriptado: %s\n", littleEnigmaEncrypt(le5, message5));
-    printf("Desencriptado: %s\n", littleEnigmaDecrypt(le5, message5));
-    printf("\n");
-
-    printf("Eso es todo :D ");
 }
