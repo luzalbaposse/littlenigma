@@ -36,15 +36,15 @@ disco.
     char* stringUnCaracter = "A";
     char* stringTodosCaracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("strLen\n");
-    printf("1. String vac´ıo: %i\n", strLen(stringVacio));
-    printf("2. String de un car´acter: %i\n", strLen(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres v´alidos distintos de cero: %i\n", strLen(stringTodosCaracteres));
+    printf("1. String vacıo: %i\n", strLen(stringVacio));
+    printf("2. String de un caracter: %i\n", strLen(stringUnCaracter));
+    printf("3. String que incluya todos los caracteres validos distintos de cero: %i\n", strLen(stringTodosCaracteres));
 
     // strDup
     printf("strDup\n");
-    printf("1. String vac´ıo: %s\n", strDup(stringVacio));
-    printf("2. String de un car´acter: %s\n", strDup(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres v´alidos distintos de cero: %s\n", strDup(stringTodosCaracteres));
+    printf("1. String vacıo: %s\n", strDup(stringVacio));
+    printf("2. String de un caracter: %s\n", strDup(stringUnCaracter));
+    printf("3. String que incluya todos los caracteres validos distintos de cero: %s\n", strDup(stringTodosCaracteres));
 
     // makeWheelFromString
     printf("makeWheelFromString\n");
@@ -70,7 +70,7 @@ disco.
 
     // rotateWheel
     printf("rotateWheel\n");
-    printf("1. Rotar una estrucutura wheel de 26 caracteres una posici´on: ");
+    printf("1. Rotar una estrucutura wheel de 26 caracteres una posicion: ");
     rotateWheel(w3, 1);
     wheelPrint(w3);
     printf("\n");
@@ -109,16 +109,16 @@ disco.
     printf("1. Encriptar y desencriptar un mensaje de 0 caracteres: ");
     printf("Encriptado: %s\n", littleEnigmaEncrypt(le1, message1));
     printf("Desencriptado: %s\n", littleEnigmaDecrypt(le1, message1));
-    printf("2. Encriptar y desencriptar un mensaje de 35 caracteres iguales con una m´aquina de un solo disco: ");
+    printf("2. Encriptar y desencriptar un mensaje de 35 caracteres iguales con una maquina de un solo disco: ");
     printf("Encriptado: %s\n", littleEnigmaEncrypt(le2, message2));
     printf("Desencriptado: %s\n", littleEnigmaDecrypt(le2, message2));
-    printf("3. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de tres discos: ");
+    printf("3. Encriptar y desencriptar un mensaje de 10 caracteres con una maquina de tres discos: ");
     printf("Encriptado: %s\n", littleEnigmaEncrypt(le3, message3));
     printf("Desencriptado: %s\n", littleEnigmaDecrypt(le3, message3));
-    printf("4. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de cinco discos: ");
+    printf("4. Encriptar y desencriptar un mensaje de 10 caracteres con una maquina de cinco discos: ");
     printf("Encriptado: %s\n", littleEnigmaEncrypt(le4, message4));
     printf("Desencriptado: %s\n", littleEnigmaDecrypt(le4, message4));
-    printf("5. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de ocho discos: ");
+    printf("5. Encriptar y desencriptar un mensaje de 10 caracteres con una maquina de ocho discos: ");
     printf("Encriptado: %s\n", littleEnigmaEncrypt(le5, message5));
     printf("Desencriptado: %s\n", littleEnigmaDecrypt(le5, message5));
     printf("\n");

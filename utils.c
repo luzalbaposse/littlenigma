@@ -139,10 +139,8 @@ ningún valor, ya que modifica la estructura w.
     */
     for(int i=0; i<steps; i++) {
         w->first = w->first->next;
-        
     }
-
-
+    
 }
 
 void rotateWheels(struct wheel** wheels, int wheelsCount) {
@@ -156,8 +154,6 @@ void rotateWheels(struct wheel** wheels, int wheelsCount) {
             rotateWheel(current, 1); // roto la rueda actual
         }
     }
-    
-
 }
 
 void wheelDelete(struct wheel* w) {
