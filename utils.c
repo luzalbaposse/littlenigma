@@ -67,7 +67,17 @@ void littleEnigmaPrint(struct littleEnigma* le) {
 }
 
 struct wheel* makeWheelFromString(char* alphabetPermutation) {
-   /*COMPLETAR*/
+    int tamano = len(alphabetPermutation);
+    struct wheel* rueda = (struct wheel*)malloc(sizeof(struct wheel*));
+    struct letter* letras = (struct letter*)malloc(sizeof(struct letter*));
+    wheel->first = letras;
+    for(int i = 0;i<tamano;i++){
+        letras->letter = alphabetPermutation[i];
+        letras->position = i;
+        letras->next = (struct letter*)malloc(sizeof(struct letter*))
+        letras = letras->next;
+    }
+    return wheel;
 }
 
 void setWheel(struct wheel* w, int position) {
