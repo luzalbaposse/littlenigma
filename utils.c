@@ -141,25 +141,61 @@ ningún valor, ya que modifica la estructura w.
 }
 
 void rotateWheels(struct wheel** w, int count) {
-    int i = 0;
-    int tamano_w1 = w[0]->count;
-    rotateWheel(w[0], 1);
-    while (w[0]->first->position != 0) {
-        wheelPrint(w[i]);
-        printf("\n");
-        rotateWheel(w[i], tamano_w1);
-
-        if (w[i]->first->position == 0) {
+/*
+Toma un arreglo de punteros a wheels y los hace girar con la siguiente lógica. 
+1. Hace girar el primero, si este llego al final, entonces hace girar el segundo en 1 step. 
+Vuelve a girar la primera, y después gira la segunda en 1 step. Lo hará hasta que la 2da gire una vuelta completa.
+Una vez que eso pase, rota la 3era en 1 step y así sucesivamente 
+Para determinar si se llego al final de una vuelta, se utiliza el campo position dentro de nodo letter. El campo count indica la
+cantidad de wheels pasadas por parámetro. Para resolver está función puede utilizar la función
+rotateWheel.
+Generalizando, el algoritmo sería así:
+1. Hacer girar la primera wheel en n steps, siendo n steps el count de la wheel.
+2. Si la primera wheel llego al final, hacer girar la segunda en 1 step.
+3. Volver a girar la primera en n steps hasta que la segunda wheel llegue al final.
+Ahora, la segunda ocupa el lugar de la primera y la que le sigue a la segunda ocupa el lugar de la segunda.
+4. Hacer girar la tercera en 1 step.
+5. Volver a girar la segunda en n steps hasta que la tercera wheel llegue al final.
+*/
+    int i = 0; // Me paro en la primera wheel
+    int j = 0; // lo uso de contador
+    while(i<count) { // Recorro todas las wheels
+    // Giro la rueda actual de a 1 step 
+        while(j < w[i]-> count){
             wheelPrint(w[i]);
+            rotateWheel(w[i], 1);
             printf("\n");
-            i++;
+            j++;
+        }
+        j = 0;
+    // Si la primera wheel giró entera, hago un loop donde la primera rueda gire entera y la segunda en 1 step, hasta que la segunda gire entera
+        if(w[i]->first->position == 0) { 
+            wheelPrint(w[i]);
+            printf("Estoy girando la rueda %d\n", i);
+            printf("\n");        
+            rotateWheel(w[i+1],1);
+            printf("\n");
+            wheelPrint(w[i+1]);
+            printf("Estoy girando la rueda %d\n", i+1);
+            while(w[i+1]->first->position != 0) { // Mientras la segunda wheel no haya girado entera
+                while(j < w[i]-> count){
+                    printf("Estoy girando la rueda %d\n", i);
+                    rotateWheel(w[i], 1);
+                    printf("\n");
+                    j++;}
+                j = 0;
+                rotateWheel(w[i+1], 1); // Hago girar la segunda wheel en 1 step
+                wheelPrint(w[i+1]);
+                printf("Estoy girando la rueda %d\n", i+1);
+                printf("\n");
+            }
+            i++; // Paso a la siguiente wheel
+        }
+        else {
         }
     }
 }
-
-
-
-
+ 
 void wheelDelete(struct wheel* w) {
     /*
     Libera la memoria de la estructura wheel y de todos los letter que contiene.
@@ -249,7 +285,7 @@ void wheelPrint(struct wheel* w) {
 
 int main(){
     // Pruebo make wheel from string
-    char* alphabet = "ABCD";
+    char* alphabet = "AB";
     struct wheel* w = makeWheelFromString(alphabet);
     // wheelPrint(w);
 
@@ -262,9 +298,9 @@ int main(){
     // wheelPrint(w);
     // Pruebo rotateWheels, creo más wheels y armo un array de wheels
     printf("\n");
-    char* alphabet2 = "EFGH";
+    char* alphabet2 = "CD";
     struct wheel* w2 = makeWheelFromString(alphabet2);
-    char* alphabet3 = "IJKL";
+    char* alphabet3 = "FG";
     struct wheel* w3 = makeWheelFromString(alphabet3);
     struct wheel* wheels[3] = {w, w2, w3};
 
