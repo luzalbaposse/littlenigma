@@ -29,21 +29,21 @@ char* strDup(char* src) {
     return aux;
 }
 
-// struct littleEnigma* littleEnigmaNew(char** alphabetPermutation, int count){
-// /*
-// Requiere: alphabetPermutation es un puntero a un arreglo de punteros a arreglos de caracteres
-// terminados en '\0'. count es la cantidad de permutaciones en alphabetPermutation.
-// Devuelve: un puntero a una estructura littleEnigma que contiene count ruedas, cada una con
-// la permutación de letras correspondiente.
-// */
-//     struct littleEnigma* le = (struct littleEnigma*)malloc(sizeof(struct littleEnigma)); // Pido memoria para littleEnigma
-//     le->wheels = (struct wheel**)malloc(sizeof(struct wheel*) * count); // Pido memoria para el arreglo de ruedas
-//     le->wheelsCount = count; // Asigno la cantidad de ruedas
-//     for(int i=0; i<count; i++) { // Recorro el arreglo de permutaciones
-//         le->wheels[i] = makeWheelFromString(alphabetPermutation[i]); // Creo la rueda a partir de la permutación
-//     }
-//     return le; // Retorno la estructura littleEnigma creada
-// }
+struct littleEnigma* littleEnigmaNew(char** alphabetPermutation, int count){
+/*
+Requiere: alphabetPermutation es un puntero a un arreglo de punteros a arreglos de caracteres
+terminados en '\0'. count es la cantidad de permutaciones en alphabetPermutation.
+Devuelve: un puntero a una estructura littleEnigma que contiene count ruedas, cada una con
+la permutación de letras correspondiente.
+*/
+    struct littleEnigma* le = (struct littleEnigma*)malloc(sizeof(struct littleEnigma)); // Pido memoria para littleEnigma
+    le->wheels = (struct wheel**)malloc(sizeof(struct wheel*) * count); // Pido memoria para el arreglo de ruedas
+    le->wheelsCount = count; // Asigno la cantidad de ruedas
+    for(int i=0; i<count; i++) { // Recorro el arreglo de permutaciones
+        le->wheels[i] = makeWheelFromString(alphabetPermutation[i]); // Creo la rueda a partir de la permutación
+    }
+    return le; // Retorno la estructura littleEnigma creada
+}
 
 // void littleEnigmaSet(struct littleEnigma* le, int* password) {
 //     /*
@@ -84,12 +84,15 @@ char* strDup(char* src) {
 //     return aux; // Retorno la nueva string
 // }
 
-// void littleEnigmaDelete(struct littleEnigma* le) {
-//     /*
-//     Borra la estructura littleEnigma y todas las estructuras apuntadas. Para esto se debe utilizar
-//     la función wheelDelete
-//     */
-// }
+void littleEnigmaDelete(struct littleEnigma* le) {
+    /*
+    Borra la estructura littleEnigma y todas las estructuras apuntadas. Para esto se debe utilizar
+    la función wheelDelete
+    */
+        for (int i=0; i<le->wheelsCount; i++){
+                wheelDelete(le->wheels[i]);
+            }   
+}
 
 // void littleEnigmaPrint(struct littleEnigma* le) {
 //     for(int i=0; i<le->wheelsCount; i++) {
@@ -162,32 +165,32 @@ Ahora, la segunda ocupa el lugar de la primera y la que le sigue a la segunda oc
     while(i<count) { // Recorro todas las wheels
     // Giro la rueda actual de a 1 step 
         while(j < w[i]-> count){
-            wheelPrint(w[i]);
+            // wheelPrint(w[i]);
+            // printf("\n");
             rotateWheel(w[i], 1);
-            printf("\n");
             j++;
         }
         j = 0;
     // Si la primera wheel giró entera, hago un loop donde la primera rueda gire entera y la segunda en 1 step, hasta que la segunda gire entera
         if(w[i]->first->position == 0) { 
-            wheelPrint(w[i]);
-            printf("Estoy girando la rueda %d\n", i);
-            printf("\n");        
+            // wheelPrint(w[i]);
+            // printf("Estoy girando la rueda %d\n", i);
+            // printf("\n");        
             rotateWheel(w[i+1],1);
-            printf("\n");
-            wheelPrint(w[i+1]);
+            // printf("\n");
+            // wheelPrint(w[i+1]);
             printf("Estoy girando la rueda %d\n", i+1);
             while(w[i+1]->first->position != 0) { // Mientras la segunda wheel no haya girado entera
                 while(j < w[i]-> count){
-                    printf("Estoy girando la rueda %d\n", i);
-                    rotateWheel(w[i], 1);
-                    printf("\n");
+                    // printf("Estoy girando la rueda %d\n", i);
+                    // rotateWheel(w[i], 1);
+                    // printf("\n");
                     j++;}
                 j = 0;
                 rotateWheel(w[i+1], 1); // Hago girar la segunda wheel en 1 step
-                wheelPrint(w[i+1]);
-                printf("Estoy girando la rueda %d\n", i+1);
-                printf("\n");
+                // wheelPrint(w[i+1]);
+                // printf("Estoy girando la rueda %d\n", i+1);
+                // printf("\n");
             }
             i++; // Paso a la siguiente wheel
         }
@@ -212,8 +215,6 @@ void wheelDelete(struct wheel* w) {
     free(w->alphabet);
     free(w); 
 }
-
-
 
 void wheelPrint(struct wheel* w) {
     printf("%s", w->alphabet);
@@ -284,26 +285,21 @@ void wheelPrint(struct wheel* w) {
 // }
 
 int main(){
-    // Pruebo make wheel from string
-    char* alphabet = "AB";
-    struct wheel* w = makeWheelFromString(alphabet);
-    // wheelPrint(w);
-
-    // // Pruebo rotatewheel
-    // rotateWheel(w, 1);
-    // printf("\n");
-    // wheelPrint(w);
-    // rotateWheel(w, 2);
-    // printf("\n");
-    // wheelPrint(w);
-    // Pruebo rotateWheels, creo más wheels y armo un array de wheels
+//Pruebo little enigma new
+    char ** alphabetperm = malloc(4*sizeof(char*));
+    alphabetperm[0] = "ABCD";
+    alphabetperm[1] = "CDBA";
+    alphabetperm[2] = "DCAB";   
+    alphabetperm[3] = "BADC";
+    struct littleEnigma* le = littleEnigmaNew(alphabetperm, 4);
+    wheelPrint(le->wheels[0]);
     printf("\n");
-    char* alphabet2 = "CD";
-    struct wheel* w2 = makeWheelFromString(alphabet2);
-    char* alphabet3 = "FG";
-    struct wheel* w3 = makeWheelFromString(alphabet3);
-    struct wheel* wheels[3] = {w, w2, w3};
-
-    rotateWheels(wheels, 3);
-
+    wheelPrint(le->wheels[1]);
+    printf("\n");
+    wheelPrint(le->wheels[2]);
+    printf("\n");
+    wheelPrint(le->wheels[3]);
+    // borro little enigma
+    littleEnigmaDelete(le);
+    wheelPrint(le->wheels[0]);
 }
