@@ -146,26 +146,44 @@ ningún valor, ya que modifica la estructura w.
     }
 }
 void rotateWheels(struct wheel** w, int count) {
-    for (int i = 0; i < count; i++) {
-        int steps = 1;  // Cantidad de pasos para girar el wheel actual
-        struct wheel* currentWheel = w[i];
-        
-        if (currentWheel->first->position == currentWheel->count - 1) {
-            // Si el primer nodo llegó al final, giramos el siguiente wheel
-            steps++;
-            for (int j = i + 1; j < count; j++) {
-                struct wheel* nextWheel = w[j];
-                if (nextWheel->first->position == nextWheel->count - 1) {
-                    steps++;
-                } else {
-                    break;
-                }
-            }
+    /*
+    Toma un arreglo de punteros a wheels y despues:
+    1. Hace girar el primero, si este llego al final, entonces hace girar también hace girar el segundo. 
+    2. Si el segundo llego al final, también hace girar al tercero y así sucesivamente. 
+Para determinar si se llego al final de una vuelta, se utiliza el campo position dentro de nodo letter. El campo count indica la
+cantidad de wheels pasadas por parámetro. Para resolver está función puede utilizar la función rotateWheel.
+O SEA: PRIMERO ROTA TOTALMENTE UNA RUEDA, al terminar de girar una vuelta, ROTA LA SIGUIENTE.
+Recuerdo que la estructura es:
+struct littleEnigma {
+    struct wheel** wheels;
+    int wheelsCount;
+};
+
+struct wheel {
+    struct letter* first;
+    char* alphabet;
+    int count;
+};
+
+struct letter {
+    char letter;
+    int  position;
+    struct letter* next;
+};
+*/
+    int i = 0;
+    while(i<count){
+        // Acá roto la primera rueda
+        rotateWheel(w[i], 1);
+        if(w[i]->first->position == 0) {
+            // si la rueda llegó al final, roto la siguiente.
+            i++;
         }
-        
-        rotateWheel(currentWheel, steps);
     }
 }
+// cumple con la consigna porque rota la primera rueda, y si esta llega al final, rota la siguiente.
+
+
 
 void wheelDelete(struct wheel* w) {
     /*
@@ -257,54 +275,3 @@ char decryptOneLetter(struct littleEnigma* le, char letter) {
     return letter;
 }
 
-int main(){
-
-    // probar rotatewheel
-    char* alphabet3 = "ABCDE";
-    struct wheel* w3 = makeWheelFromString(alphabet3);
-    printf("5 letras: ");
-    wheelPrint(w3);
-    printf("\n");
-    printf("rotado 5 steps:");
-    rotateWheel(w3, 5);
-    wheelPrint(w3);
-    printf("\n");
-    printf("rotado 1 step:");
-    rotateWheel(w3, 1);
-    wheelPrint(w3);
-    printf("\n");
-    printf("rotado en 2 steps:");
-    rotateWheel(w3,1);
-    wheelPrint(w3);
-    printf("\n");
-    printf("rotado en 3 steps:");
-    rotateWheel(w3,1);
-    wheelPrint(w3);
-    printf("\n");
-
-    // pruebo rotateWheels
-
-     // Crear las letras y las ruedas
-    struct letter letterA = {'A', 0, NULL};
-    struct letter letterB = {'B', 2, NULL};
-    struct letter letterC = {'C', 25, NULL};
-
-    struct wheel wheel1 = {&letterA, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
-    struct wheel wheel2 = {&letterB, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
-    struct wheel wheel3 = {&letterC, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 26};
-
-    // Crear el arreglo de punteros a ruedas
-    struct wheel* wheels[] = {&wheel1, &wheel2, &wheel3};
-
-    // Llamar a la función para rotar las ruedas
-    rotateWheels(wheels, 3);
-
-    // Imprimir las letras y posiciones finales después de la rotación
-    for (int i = 0; i < 3; i++) {
-        printf("Wheel %d: Letter %c (Position %d)\n", i+1, wheels[i]->first->letter, wheels[i]->first->position);
-    }
-
-    return 0;
-
-
-}

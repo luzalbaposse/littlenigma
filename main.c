@@ -3,32 +3,7 @@
 #include "utils.h"
 int main(){
     /*
-    se enumera un conjunto m´ınimo de casos de test que deben implementar dentro
-del archivo main:
-strLen
-1. String vac´ıo.
-2. String de un car´acter.
-3. String que incluya todos los caracteres v´alidos distintos de cero.
-strDup
-1. String vac´ıo.
-2. String de un car´acter.
-3. String que incluya todos los caracteres v´alidos distintos de cero.
-makeWheelFromString
-1. Generar una estructura wheel con un alfabeto de 1 caracter.
-2. Generar una estructura wheel con un alfabeto de 10 caracteres.
-3. Generar una estructura wheel con un alfabeto de 26 caracteres.
-rotateWheel
-1. Rotar una estrucutura wheel de 26 caracteres una posici´on.
-2. Rotar una estrucutura wheel de 26 caracteres 26 posiciones.
-3. Rotar una estrucutura wheel de 5 caracteres 26 posiciones.
-4. Rotar una estrucutura wheel de 1 caracteres 26 posiciones.
-littleEnigmaEncrypt y littleEnigmaDecrypt
-1. Encriptar y desencriptar un mensaje de 0 caracteres.
-2. Encriptar y desencriptar un mensaje de 35 caracteres iguales con una m´aquina de un solo
-disco.
-3. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de tres discos.
-4. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de cinco discos.
-5. Encriptar y desencriptar un mensaje de 10 caracteres con una m´aquina de ocho discos.
+    test
     */
 
     // strLen
@@ -36,15 +11,15 @@ disco.
     char* stringUnCaracter = "A";
     char* stringTodosCaracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("strLen\n");
-    printf("1. String vac´ıo: %i\n", strLen(stringVacio));
+    printf("1. String vacio: %i\n", strLen(stringVacio));
     printf("2. String de un car´acter: %i\n", strLen(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres v´alidos distintos de cero: %i\n", strLen(stringTodosCaracteres));
+    printf("3. String que incluya todos los caracteres validos distintos de cero: %i\n", strLen(stringTodosCaracteres));
 
     // strDup
     printf("strDup\n");
-    printf("1. String vac´ıo: %s\n", strDup(stringVacio));
-    printf("2. String de un car´acter: %s\n", strDup(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres v´alidos distintos de cero: %s\n", strDup(stringTodosCaracteres));
+    printf("1. String vacio: %s\n", strDup(stringVacio));
+    printf("2. String de un caracter: %s\n", strDup(stringUnCaracter));
+    printf("3. String que incluya todos los caracteres validos distintos de cero: %s\n", strDup(stringTodosCaracteres));
 
     // makeWheelFromString
     printf("makeWheelFromString\n");
@@ -70,7 +45,7 @@ disco.
 
     // rotateWheel
     printf("rotateWheel\n");
-    printf("1. Rotar una estrucutura wheel de 26 caracteres una posici´on: ");
+    printf("1. Rotar una estrucutura wheel de 26 caracteres una posicion: ");
     rotateWheel(w3, 1);
     wheelPrint(w3);
     printf("\n");
