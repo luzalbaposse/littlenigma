@@ -140,20 +140,23 @@ ningún valor, ya que modifica la estructura w.
     }
 }
 
-void rotateWheels(struct wheel** w, int count) { 
+void rotateWheels(struct wheel** w, int count) {
     int i = 0;
-    while(i<count){
-        rotateWheel(w[i], 1); // Acá roto la primera rueda
-        if(w[i]->first->position == 0) {
-            // si la rueda llegó al final, roto la siguiente.
+    int tamano_w1 = w[0]->count;
+    rotateWheel(w[0], 1);
+    while (w[0]->first->position != 0) {
+        wheelPrint(w[i]);
+        printf("\n");
+        rotateWheel(w[i], tamano_w1);
+
+        if (w[i]->first->position == 0) {
+            wheelPrint(w[i]);
+            printf("\n");
             i++;
-        } else {
-            // No necesitamos realizar ninguna operación adicional aca
         }
     }
 }
 
-// // cumple con la consigna porque rota la primera rueda, y si esta llega al final, rota la siguiente.
 
 
 
@@ -173,6 +176,8 @@ void wheelDelete(struct wheel* w) {
     free(w->alphabet);
     free(w); 
 }
+
+
 
 void wheelPrint(struct wheel* w) {
     printf("%s", w->alphabet);
@@ -246,13 +251,15 @@ int main(){
     // Pruebo make wheel from string
     char* alphabet = "ABCD";
     struct wheel* w = makeWheelFromString(alphabet);
-    wheelPrint(w);
+    // wheelPrint(w);
 
-    // Pruebo rotatewheel
-    rotateWheel(w, 1);
-    printf("\n");
-    wheelPrint(w);
-
+    // // Pruebo rotatewheel
+    // rotateWheel(w, 1);
+    // printf("\n");
+    // wheelPrint(w);
+    // rotateWheel(w, 2);
+    // printf("\n");
+    // wheelPrint(w);
     // Pruebo rotateWheels, creo más wheels y armo un array de wheels
     printf("\n");
     char* alphabet2 = "EFGH";
@@ -260,56 +267,7 @@ int main(){
     char* alphabet3 = "IJKL";
     struct wheel* w3 = makeWheelFromString(alphabet3);
     struct wheel* wheels[3] = {w, w2, w3};
-    
-    // Pruebo rotateWheels
-    printf("\n");
+
     rotateWheels(wheels, 3);
-    wheelPrint(w);
-    printf("\n");
-    wheelPrint(w2);
-    printf("\n");
-    wheelPrint(w3);
 
-    char* alphabet4 = "MNOP";
-    struct wheel* w4 = makeWheelFromString(alphabet4);
-    char* alphabet5 = "QRST";
-    struct wheel* w5 = makeWheelFromString(alphabet5);
-
-    // pruebo con mas ruedas
-
-    struct wheel* wheels2[5] = {w, w2, w3, w4, w5};
-    rotateWheel(w, 1);
-    rotateWheel(w5, 2);
-    printf("\n");
-    wheelPrint(w);
-    printf("\n");
-    wheelPrint(w5);
-    printf("\n");
-    rotateWheels(wheels2, 5);
-    wheelPrint(w);
-    printf("\n");
-    wheelPrint(w2);
-    printf("\n");
-    wheelPrint(w3);
-    printf("\n");
-    wheelPrint(w4);
-    printf("\n");
-    wheelPrint(w5);
-
-    // Pruebo wheelDelete
-     wheelPrint(w5);  
-    wheelDelete(w);
-    wheelDelete(w2);
-    wheelDelete(w3);
-    wheelDelete(w4);
-    
-    wheelPrint(w);
-    printf("\n");
-    wheelPrint(w2);
-    printf("\n");
-    wheelPrint(w3);
-    printf("\n");
-    wheelPrint(w4);
-    printf("\n");
- 
 }
