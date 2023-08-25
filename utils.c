@@ -6,7 +6,7 @@ Requiere: src es un puntero a un arreglo de caracteres terminado en '\0'.
 Devuelve: la cantidad de caracteres en src sin contar el '\0'.
 Esta función cuenta la cantidad de caracteres en src sin contar el '\0'.
 */
-    int i;
+    int i = 0;
     while(src[i] != '\0') {
         i++;
     }
@@ -89,7 +89,9 @@ void littleEnigmaDelete(struct littleEnigma* le) {
     */
         for (int i=0; i<le->wheelsCount; i++){
                 wheelDelete(le->wheels[i]);
-            }   
+            }
+        free(le);
+        return;   
 }
 
 void littleEnigmaPrint(struct littleEnigma* le) {
@@ -142,54 +144,32 @@ ningún valor, ya que modifica la estructura w.
 }
 
 void rotateWheels(struct wheel** w, int count) {
-    int i = 0; 
-    int j = 0; 
-    while(i<count) { 
-        while(j < w[i]-> count){
-            // wheelPrint(w[i]);
-            // printf("\n");
-            rotateWheel(w[i], 1);
-            j++;
-        }
-        j = 0;
-        if(w[i]->first->position == 0) { 
-            // wheelPrint(w[i]);
-            // printf("Estoy girando la rueda %d\n", i);
-            // printf("\n");        
-            rotateWheel(w[i+1],1);
-            // printf("\n");
-            // wheelPrint(w[i+1]);
-            // printf("Estoy girando la rueda %d\n", i+1);
-            while(w[i+1]->first->position != 0) { 
-                while(j < w[i]-> count){
-                    // printf("Estoy girando la rueda %d\n", i);
-                    rotateWheel(w[i], 1);
-                    // printf("\n");
-                    j++;}
-                j = 0;
-                rotateWheel(w[i+1], 1); 
-                // wheelPrint(w[i+1]);
-                // printf("Estoy girando la rueda %d\n", i+1);
-                // printf("\n");
+    int i = 0;
+    int j = 0;
+    rotateWheel(w[0], 1);
+    if (w[0]->first->position == 0) {
+        while(i<count){
+            rotateWheel(w[i+1], 1);
+            if (w[i+1]->first->position == 0){
+                        i++;
+            } else{
+                break;
             }
-            i++; 
-        }
-        else {
         }
     }
 }
- 
+
 void wheelDelete(struct wheel* w) {
     /*
     Libera la memoria de la estructura wheel y de todos los letter que contiene.
     */   
-    struct letter* current = w->first; // Me paro en el primer nodo
-    struct letter* next = current->next; // me paro en el segundo
-    while (next != w->first) { // mientras el siguiente, no sea el primero
-        struct letter* temp = current; // me creo un nodo temporal para guardar el actual
-        current = next; // designo como actual al siguiente 
-        next = current->next; // designo como siguiente al siguiente del actual
-        free(temp); // libero el que quería liberar 
+    struct letter* current = w->first; 
+    struct letter* next = current->next; 
+    while (next != w->first) { 
+        struct letter* temp = current; 
+        current = next;
+        next = current->next; 
+        free(temp);
     }
     free(current);
     free(w->alphabet);
@@ -243,11 +223,11 @@ char encryptOneLetter(struct littleEnigma* le, char letter) {
 Requiere: le es un puntero a una estructura littleEnigma inicializada.
 Devuelve: la letra codificada por la m´aquina.
     */
-    for(int i=0; i<le->wheelsCount; i++) { // recorro las ruedas
-        struct wheel* current = le->wheels[i];  // me paro en la rueda actual
-        letter = encryptWheel(current, letter); // codifico la letra
+    for(int i=0; i<le->wheelsCount; i++) { 
+        struct wheel* current = le->wheels[i]; 
+        letter = encryptWheel(current, letter);
     }
-    rotateWheels(le->wheels, le->wheelsCount); // roto las ruedas
+    rotateWheels(le->wheels, le->wheelsCount);
     return letter;
 }
 
@@ -256,10 +236,22 @@ char decryptOneLetter(struct littleEnigma* le, char letter) {
     Requiere:  le es un puntero a una estructura littleEnigma inicializada.
     Devuelve: la letra decodificada por la m´aquina.
     */
-    for(int i=le->wheelsCount-1; i>=0; i--) { // recorro las ruedas
-        struct wheel* current = le->wheels[i];  // me paro en la rueda actual
-        letter = decryptWheel(current, letter); // decodifico la letra
+    for(int i=le->wheelsCount-1; i>=0; i--) { 
+        struct wheel* current = le->wheels[i];
+        letter = decryptWheel(current, letter); 
     }
-    rotateWheels(le->wheels, le->wheelsCount); // roto las ruedas
+    rotateWheels(le->wheels, le->wheelsCount); 
     return letter;
+}
+
+int main(){
+
+    //pruebo rotatewheels
+    char* alphabet = "ABC";
+    struct wheel* w1 = makeWheelFromString(alphabet);
+    struct wheel* w2 = makeWheelFromString(alphabet);
+    struct wheel* w3 = makeWheelFromString(alphabet);
+    struct wheel* w[3] = {w1, w2, w3};
+    // Para testear esto uso encryptoneletter
+    
 }

@@ -1,59 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "utils.c"
+
 int main(){
-    // strLen
-    char* stringVacio = "";
-    char* stringUnCaracter = "A";
-    char* stringTodosCaracteres = "!#$&'()*+,-./123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz{|}~";
+   // strLen test
+    char* strvacio = "";
+    char* str1caracter = "a";
+    char* strtodo = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!#$&/()=?¡¿";
     printf("strLen\n");
-    printf("1. String vacıo: %i\n", strLen(stringVacio));
-    printf("2. String de un caracter: %i\n", strLen(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres validos distintos de cero: %i\n", strLen(stringTodosCaracteres));
-    // strDup
+    printf("String vacio: %d\n", strLen(strvacio));
+    printf("String de un caracter: %d\n", strLen(str1caracter));
+    printf("String de todos los caracteres: %d\n", strLen(strtodo));
+    printf("\n");
+
+    // strDup test
     printf("strDup\n");
-    printf("1. String vacıo: %s\n", strDup(stringVacio));
-    printf("2. String de un caracter: %s\n", strDup(stringUnCaracter));
-    printf("3. String que incluya todos los caracteres validos distintos de cero: %s\n", strDup(stringTodosCaracteres));
-    // makeWheelFromString
+    printf("String vacio: %s\n", strDup(strvacio));
+    printf("String de un caracter: %s\n", strDup(str1caracter));
+    printf("String de todos los caracteres: %s\n", strDup(strtodo));
+    printf("\n");
+
+    // makeWheelFromString test
     printf("makeWheelFromString\n");
-    char* alphabet1 = "A";
-    char* alphabet2 = "ABCDEFGHIJ";
-    char* alphabet3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char* alphabet4 = "ABCDE";
-    struct wheel* w1 = makeWheelFromString(alphabet1);
-    struct wheel* w2 = makeWheelFromString(alphabet2);
-    struct wheel* w3 = makeWheelFromString(alphabet3);
-    struct wheel* w4 = makeWheelFromString(alphabet4);
-    printf("1. Generar una estructura wheel con un alfabeto de 1 caracter: ");
-    wheelPrint(w1);
-    printf("\n");
-    printf("2. Generar una estructura wheel con un alfabeto de 10 caracteres: ");
-    wheelPrint(w2);
-    printf("\n");
-    printf("3. Generar una estructura wheel con un alfabeto de 26 caracteres: ");
-    wheelPrint(w3);
-    printf("\n");
-    printf("4. Generar una estructura wheel con un alfabeto de 5 caracteres: ");
-    wheelPrint(w4);
-    // rotateWheel
+    printf("Generar una estructura wheel con un alfabeto de 1 caracter: %s\n", makeWheelFromString(str1caracter)->alphabet);
+    printf("Generar una estructura wheel con un alfabeto de 10 caracteres: %s\n", makeWheelFromString("ABCDEFGHIJ")->alphabet);
+    printf("Generar una estructura wheel con un alfabeto de 26 caracteres: %s\n", makeWheelFromString("ABCDEFGHIJKLMNOPQRSTUVWXYZ")->alphabet);
+
+    // rotateWheel test
     printf("rotateWheel\n");
-    printf("1. Rotar una estrucutura wheel de 26 caracteres una posicion: ");
-    rotateWheel(w3, 1);
-    wheelPrint(w3);
-    printf("\n");
-    printf("2. Rotar una estrucutura wheel de 26 caracteres 26 posiciones: ");
+    //Rotate wheel de 26 caracteres 1 vez
+    printf("Rotate wheel de 26 caracteres 1 vez\n");
+    struct wheel* w1 = makeWheelFromString("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    rotateWheel(w1, 1);
+    wheelPrint(w1);
+    printf("Rotate wheel de 26 caracteres 26 posiciones\n");
+    //Rotate wheel de 26 caracteres 26 posiciones
+    struct wheel* w2 = makeWheelFromString("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    rotateWheel(w2, 26);
+    wheelPrint(w2);
+
+    //Rotate wheel de 5 caracteres 26 posiciones
+    printf("Rotate wheel de 5 caracteres 26 posiciones\n");
+    struct wheel* w3 = makeWheelFromString("ABCDE");
     rotateWheel(w3, 26);
     wheelPrint(w3);
-    printf("\n");
-    printf("3. Rotar una estrucutura wheel de 5 caracteres 26 posiciones: ");
+
+    //Rotate wheel de 1 caracter 26 posiciones
+    printf("Rotate wheel de 1 caracter 26 posiciones\n");
+    struct wheel* w4 = makeWheelFromString("a");
     rotateWheel(w4, 26);
     wheelPrint(w4);
-    printf("\n");
-    printf("4. Rotar una estrucutura wheel de 1 caracteres 26 posiciones: ");
-    rotateWheel(w1, 26);
-    wheelPrint(w1);
-    printf("\n");
-    
-    
-}
+
+    // littleEnigmaEncrypt y littleEnigma Decrypt test
+    printf("littleEnigmaEncrypt y littleEnigma Decrypt\n");
+
+
+    }
