@@ -85,7 +85,7 @@ int main(){
 
     littleEnigmaDelete(le);
 
-// Liberamos memoria de todo lo que usamos 
+
     free(strvacio);
     free(str1caracter);
     free(strtodo);
@@ -95,5 +95,11 @@ int main(){
     free(w4);
     free(le);
     
+    for(int i=0; i<2; i++) {
+        free(alphabetPermutation[i]);
+    }
+    free(alphabetPermutation);
+
+
     return 0;
 }
