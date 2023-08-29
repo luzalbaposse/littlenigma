@@ -52,19 +52,38 @@ int main(){
     rotateWheel(w4, 26);
     wheelPrint(w4);
 
-   // littleEnigmaEncrypt y littleEnigma Decrypt test
-    printf("littleEnigmaEncrypt y littleEnigma Decrypt\n");
-    struct wheel* w5 = makeWheelFromString("CIFRARYDECIFRAR");
+    // littleEnigma
     char* alphabetPermutation[2];
     alphabetPermutation[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
     alphabetPermutation[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
     struct littleEnigma* le = littleEnigmaNew(alphabetPermutation, 2);
-    char* encrypted= littleEnigmaEncrypt(le, w5);
-    printf("Texto cifrado: %s\n", encrypted);
-    char* decrypted= littleEnigmaDecrypt(le, w5);
-    printf("Texto decifrado: %s\n", decrypted);
-    free(encrypted);
-    free(decrypted);
-    }
+    littleEnigmaPrint(le);
+    printf("\n\n");
+
+    int password[2] = { 3, 5 };
+    littleEnigmaSet(le, password);
+    littleEnigmaPrint(le);
+    printf("\n\n");
+
+    char* text = "TEXT";
+    char* code = littleEnigmaEncrypt(le, text);
+    littleEnigmaPrint(le);
+    printf("%s -> %s\n\n", text, code);
+
+    littleEnigmaSet(le, password);
+    littleEnigmaPrint(le);
+    printf("\n\n");
+
+    char* decode = littleEnigmaDecrypt(le, code);
+    littleEnigmaPrint(le);
+    printf("%s -> %s -> %s\n\n", text, code, decode);
+
+    if(code) free(code);
+    if(decode) free(decode);
+
+    littleEnigmaDelete(le);
+
+    return 0;
+}
 
     }
