@@ -52,8 +52,19 @@ int main(){
     rotateWheel(w4, 26);
     wheelPrint(w4);
 
-    // littleEnigmaEncrypt y littleEnigma Decrypt test
+   // littleEnigmaEncrypt y littleEnigma Decrypt test
     printf("littleEnigmaEncrypt y littleEnigma Decrypt\n");
-
+    struct wheel* w5 = makeWheelFromString("CIFRARYDECIFRAR");
+    char* alphabetPermutation[2];
+    alphabetPermutation[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
+    alphabetPermutation[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
+    struct littleEnigma* le = littleEnigmaNew(alphabetPermutation, 2);
+    char* encrypted= littleEnigmaEncrypt(le, w5);
+    printf("Texto cifrado: %s\n", encrypted);
+    char* decrypted= littleEnigmaDecrypt(le, w5);
+    printf("Texto decifrado: %s\n", decrypted);
+    free(encrypted);
+    free(decrypted);
+    }
 
     }
