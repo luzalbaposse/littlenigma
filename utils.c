@@ -243,3 +243,15 @@ char decryptOneLetter(struct littleEnigma* le, char letter) {
     rotateWheels(le->wheels, le->wheelsCount); 
     return letter;
 }
+
+int main(){
+
+    //pruebo rotatewheels
+    char* alphabet = "ABC";
+    struct wheel* w1 = makeWheelFromString(alphabet);
+    struct wheel* w2 = makeWheelFromString(alphabet);
+    struct wheel* w3 = makeWheelFromString(alphabet);
+    struct wheel* w[3] = {w1, w2, w3};
+    // Para testear esto uso encryptoneletter
+    
+}
