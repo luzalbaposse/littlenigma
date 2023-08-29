@@ -14,6 +14,7 @@ int main(){
     printf("String de todos los caracteres: %d\n", strLen(strtodo));
     printf("\n");
 
+
     // strDup test
     printf("strDup\n");
     printf("String vacio: %s\n", strDup(strvacio));
@@ -53,6 +54,7 @@ int main(){
     wheelPrint(w4);
 
     // littleEnigma
+    printf("littleEnigmaDecrypt y Encrypt\n");
     char* alphabetPermutation[2];
     alphabetPermutation[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
     alphabetPermutation[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
@@ -83,5 +85,15 @@ int main(){
 
     littleEnigmaDelete(le);
 
+// Liberamos memoria de todo lo que usamos 
+    free(strvacio);
+    free(str1caracter);
+    free(strtodo);
+    free(w1);
+    free(w2);
+    free(w3);
+    free(w4);
+    free(le);
+    
     return 0;
 }
