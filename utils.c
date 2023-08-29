@@ -35,7 +35,7 @@ Requiere: alphabetPermutation es un puntero a un arreglo de punteros a arreglos 
 terminados en '\0'. count es la cantidad de permutaciones en alphabetPermutation.
 Devuelve: un puntero a una estructura littleEnigma que contiene count ruedas, cada una con
 la permutación de letras correspondiente.
-Esta función crea una estructura littleEnigma a partir de un arreglo de permutaciones de letras.
+Crea una estructura littleEnigma a partir de un arreglo de permutaciones de letras.
 */
     struct littleEnigma* le = (struct littleEnigma*)malloc(sizeof(struct littleEnigma)); 
     le->wheels = (struct wheel**)malloc(sizeof(struct wheel*) * count); 
@@ -50,6 +50,7 @@ void littleEnigmaSet(struct littleEnigma* le, int* positions) {
     /*
     Requiere: positions es un puntero a un arreglo de enteros de tamaño igual a la cantidad de ruedas
     Devuelve: nada.
+    Setea la posición de cada rueda de la máquina.
     */
     for(int i=0; i<le->wheelsCount; i++) { 
         setWheel(le->wheels[i], positions[i]);
@@ -60,6 +61,7 @@ char* littleEnigmaEncrypt(struct littleEnigma* le, char* text){
     /*
    Requiere: text es un puntero a un arreglo de caracteres terminado en '\0'.
    Devuelve: un puntero a un arreglo de caracteres con el texto codificado.
+   Genera una nueva string, resultado de la codificación de la string pasada por parámetro. Esta
     */
     char* aux = (char*)malloc(sizeof(char) * (strLen(text)+1)); 
     for(int i=0; i<strLen(text); i++) { 
@@ -71,6 +73,8 @@ char* littleEnigmaEncrypt(struct littleEnigma* le, char* text){
 
 char* littleEnigmaDecrypt(struct littleEnigma* le, char* code) {
     /*
+    Requiere: code es un puntero a un arreglo de caracteres terminado en '\0'.
+    Devuelve: un puntero a un arreglo de caracteres con el texto decodificado.
     Genera una nueva string, resultado de la decodificación de la string pasada por parámetro. Esta
     última no debe ser modificada. Aplica a cada caracter de la función decryptOneLetter.
     */
@@ -84,14 +88,16 @@ char* littleEnigmaDecrypt(struct littleEnigma* le, char* code) {
 
 void littleEnigmaDelete(struct littleEnigma* le) {
     /*
+    Requiere: le es un puntero a una estructura littleEnigma inicializada.
+    Devuelve: nada.
     Borra la estructura littleEnigma y todas las estructuras apuntadas. Para esto se debe utilizar
     la función wheelDelete
     */
-        for (int i=0; i<le->wheelsCount; i++){
-                wheelDelete(le->wheels[i]);
-            }
-        free(le);
-        return;   
+        for (int i = 0; i < le->wheelsCount; i++) {
+        wheelDelete(le->wheels[i]); // Liberar memoria de las ruedas
+    }
+    free(le->wheels); // Liberar memoria del arreglo de ruedas
+    free(le); // Liberar memoria de la estructura littleEnigma
 }
 
 void littleEnigmaPrint(struct littleEnigma* le) {
@@ -105,6 +111,7 @@ struct wheel* makeWheelFromString(char* alphabetPermutation) {
    /*
     Requiere: alphabetPermutation es un puntero a un arreglo de caracteres terminado en '\0'.
     Devuelve: un puntero a una estructura wheel que contiene la permutación de letras.
+    Crea una estructura wheel a partir de una permutación de letras.
    */
     struct wheel* w = (struct wheel*)malloc(sizeof(struct wheel)); 
     w->alphabet = strDup(alphabetPermutation); 
@@ -135,8 +142,10 @@ void setWheel(struct wheel* w, int position) {
 
 void rotateWheel(struct wheel* w, int steps) {
     /*
+    Requiere: w es un puntero a una estructura wheel inicializada. steps es un entero positivo.
+    Devuelve: nada.
     Mueve el puntero first de la lista la cantidad de steps pasados por parámetro. No retorna
-ningún valor, ya que modifica la estructura w.
+    ningún valor, ya que modifica la estructura w.
     */
     for(int i=0; i<steps; i++) {
         w->first = w->first->next;  
@@ -144,6 +153,12 @@ ningún valor, ya que modifica la estructura w.
 }
 
 void rotateWheels(struct wheel** w, int count) {
+    /*
+    Requiere: w es un puntero a un arreglo de punteros a estructuras wheel inicializadas. count es 
+    un entero positivo.
+    Devuelve: nada.
+    Mueve el puntero first de la lista la cantidad de steps pasados por parámetro. No retorna ningún valor, ya que modifica la estructura w.
+    */
     int i = 0;
     int j = 0;
     rotateWheel(w[0], 1);
@@ -161,6 +176,8 @@ void rotateWheels(struct wheel** w, int count) {
 
 void wheelDelete(struct wheel* w) {
     /*
+    Requiere: un struct wheel
+    Devuelve: nada
     Libera la memoria de la estructura wheel y de todos los letter que contiene.
     */   
     struct letter* current = w->first; 
@@ -221,7 +238,8 @@ char decryptWheel(struct wheel* w, char letter) {
 char encryptOneLetter(struct littleEnigma* le, char letter) {
 /*
 Requiere: le es un puntero a una estructura littleEnigma inicializada.
-Devuelve: la letra codificada por la m´aquina.
+Devuelve: la letra codificada por la máquina.
+Aplica a cada rueda la función encryptWheel y luego rota las ruedas.
     */
     for(int i=0; i<le->wheelsCount; i++) { 
         struct wheel* current = le->wheels[i]; 
@@ -234,7 +252,8 @@ Devuelve: la letra codificada por la m´aquina.
 char decryptOneLetter(struct littleEnigma* le, char letter) {
     /*
     Requiere:  le es un puntero a una estructura littleEnigma inicializada.
-    Devuelve: la letra decodificada por la m´aquina.
+    Devuelve: la letra decodificada por la máquina.
+    Aplica a cada rueda la función decryptWheel y luego rota las ruedas.
     */
     for(int i=le->wheelsCount-1; i>=0; i--) { 
         struct wheel* current = le->wheels[i];
@@ -242,16 +261,4 @@ char decryptOneLetter(struct littleEnigma* le, char letter) {
     }
     rotateWheels(le->wheels, le->wheelsCount); 
     return letter;
-}
-
-int main(){
-
-    //pruebo rotatewheels
-    char* alphabet = "ABC";
-    struct wheel* w1 = makeWheelFromString(alphabet);
-    struct wheel* w2 = makeWheelFromString(alphabet);
-    struct wheel* w3 = makeWheelFromString(alphabet);
-    struct wheel* w[3] = {w1, w2, w3};
-    // Para testear esto uso encryptoneletter
-    
 }
