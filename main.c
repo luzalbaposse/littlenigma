@@ -86,20 +86,13 @@ int main(){
     littleEnigmaDelete(le);
 
 
-    free(strvacio);
-    free(str1caracter);
-    free(strtodo);
+    // free(strvacio);
+    // free(str1caracter);
+    // free(strtodo);
     free(w1);
     free(w2);
     free(w3);
     free(w4);
-    free(le);
-    
-    for(int i=0; i<2; i++) {
-        free(alphabetPermutation[i]);
-    }
-    free(alphabetPermutation);
-
 
     return 0;
 }
