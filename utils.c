@@ -121,21 +121,21 @@ struct wheel* makeWheelFromString(char* alphabetPermutation) {
     current->position = 0; 
     current->next = current; 
     w->first = current;
-    for(int i=1; i<w->count; i++) {
-        struct letter* next = (struct letter*)malloc(sizeof(struct letter));
-        next->letter = alphabetPermutation[i]; 
+    for(int i=1; i<w->count; i++) { // i=1 porque ya se agregó la primera letra
+        struct letter* next = (struct letter*)malloc(sizeof(struct letter)); // Crear un nuevo nodo
+        next->letter = alphabetPermutation[i];  // Asignarle la letra correspondiente
         next->position = i; 
-        next->next = current->next;
-        current->next = next; 
-        current = next;
+        next->next = current->next; // El siguiente del nuevo nodo es el siguiente del nodo actual
+        current->next = next;  // El siguiente del nodo actual es el nuevo nodo
+        current = next; // El nodo actual es el nuevo nodo
     }
     return w;
 }
 
 void setWheel(struct wheel* w, int position) {
     struct letter* current = w->first;
-    while(current->position != position) {
-        current = current->next;
+    while(current->position != position) { // Mientras no se haya llegado a la posición indicada
+        current = current->next; // Avanzar al siguiente nodo
     }
     w->first = current;   
 }
@@ -235,28 +235,18 @@ char decryptWheel(struct wheel* w, char letter) {
 }
 
 char encryptOneLetter(struct littleEnigma* le, char letter) {
-/*
-Requiere: le es un puntero a una estructura littleEnigma inicializada.
-Devuelve: la letra codificada por la máquina.
-Aplica a cada rueda la función encryptWheel y luego rota las ruedas.
-    */
     for(int i=0; i<le->wheelsCount; i++) { 
         struct wheel* current = le->wheels[i]; 
-        letter = encryptWheel(current, letter);
+        letter = encryptWheel(current, letter); 
     }
     rotateWheels(le->wheels, le->wheelsCount);
     return letter;
 }
 
 char decryptOneLetter(struct littleEnigma* le, char letter) {
-    /*
-    Requiere:  le es un puntero a una estructura littleEnigma inicializada.
-    Devuelve: la letra decodificada por la máquina.
-    Aplica a cada rueda la función decryptWheel y luego rota las ruedas.
-    */
     for(int i=le->wheelsCount-1; i>=0; i--) { 
-        struct wheel* current = le->wheels[i];
-        letter = decryptWheel(current, letter); 
+        struct wheel* current = le->wheels[i]; 
+        letter = decryptWheel(current, letter);  
     }
     rotateWheels(le->wheels, le->wheelsCount); 
     return letter;

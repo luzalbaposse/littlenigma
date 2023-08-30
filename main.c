@@ -14,8 +14,6 @@ int main(){
     printf("String de todos los caracteres: %d\n", strLen(strtodo));
     printf("\n");
 
-
-    // strDup test
      // strDup test
     printf("strDup\n");
     char* str1 = strDup(strvacio);
@@ -127,7 +125,7 @@ int main(){
     littleEnigmaSet(le3, password3);
     littleEnigmaSet(le4, password4);
     littleEnigmaSet(le5, password5);
-    //printf("\n\n");
+
 
     printf("littleEnigmaDecrypt()\n");
     char* decode1 = littleEnigmaDecrypt(le1, code1);
@@ -158,7 +156,7 @@ int main(){
     free(decode4);
     free(decode5);
     
-    // Liberar la memoria asignada a 'w1', 'w2' y 'w3'
+    // Liberar la memoria 
     wheelDelete(w1);
     wheelDelete(w2);
     wheelDelete(w3);
