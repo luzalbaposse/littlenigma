@@ -167,4 +167,6 @@ int main(){
     wheelDelete(w6);
     wheelDelete(w7);
 
+    printf("Tests finalizados\n");
+
 }

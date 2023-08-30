@@ -162,10 +162,10 @@ void rotateWheels(struct wheel** wheels, int wheelsCount) {
 	int seguir = 1;
 	struct wheel* curr_wheel;
 	while (i < wheelsCount && seguir){ // Mientras no se haya llegado al final del arreglo y no se haya llegado a la primera posición de la rueda
-		curr_wheel = wheels[i];
-		rotateWheel(curr_wheel, 1);
-		if ((curr_wheel->first)->position != 0){
-			seguir = 0;
+		curr_wheel = wheels[i]; // Se obtiene la rueda actual
+		rotateWheel(curr_wheel, 1); // Se rota la rueda actual en una posición
+		if ((curr_wheel->first)->position != 0){ 
+			seguir = 0; 
 		}
 		i++;
 	}
