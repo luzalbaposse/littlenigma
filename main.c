@@ -64,15 +64,7 @@ int main(){
     rotateWheel(w7, 26);
     wheelPrint(w7);
     
-    wheelDelete(w1);
-    wheelDelete(w2);
-    wheelDelete(w3);
-    wheelDelete(w4);
-    wheelDelete(w5);
-    wheelDelete(w6);
-    wheelDelete(w7);
     // littleEnigma
-    //printf("✅TESTS littleEnigmaNew\n");
     char* alphabetPermutation1[2];
     char* alphabetPermutation2[1];
     char* alphabetPermutation3[3];
@@ -80,7 +72,6 @@ int main(){
     char* alphabetPermutation5[8];
     alphabetPermutation1[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
     alphabetPermutation1[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
-    
     alphabetPermutation2[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
     
     for (int i = 0; i < 3; i++){
@@ -100,8 +91,7 @@ int main(){
     struct littleEnigma* le4 = littleEnigmaNew(alphabetPermutation4, 5);
     struct littleEnigma* le5 = littleEnigmaNew(alphabetPermutation5, 8);
     printf("\n");
-    
-    //printf("✅TEST littleEnigmaSet()\n");
+
     int password1[2] = { 3, 5 };
     int password2[1] = { 0 };
     int password3[3] = { 3, 5, 6 };
@@ -113,21 +103,14 @@ int main(){
     littleEnigmaSet(le3, password3);
     littleEnigmaSet(le4, password4);
     littleEnigmaSet(le5, password5);
-    /*
-    littleEnigmaPrint(le1);
-    littleEnigmaPrint(le2);
-    littleEnigmaPrint(le3);
-    littleEnigmaPrint(le4);
-    littleEnigmaPrint(le5);
-    */
-    //printf("\n\n");
-    
-    printf("✅TESTS littleEnigmaEncrypt() \n");
+   
+
+    printf("littleEnigmaEncrypt() \n");
     char* text1 = "";
-    char* text2 = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    char* text3 = "ARBOLITOSS";
-    char* text4 = "ARBOLITOSS";
-    char* text5 = "ARBOLITOSS";
+    char* text2 = "MURCIELAGOMURCIELAGOMURCIELAGOMURCI";
+    char* text3 = "MURCIELAGO";
+    char* text4 = "AGUAFUERTE";
+    char* text5 = "MARIECURIE";
     char* code1 = littleEnigmaEncrypt(le1, text1);
     char* code2 = littleEnigmaEncrypt(le2, text2);
     char* code3 = littleEnigmaEncrypt(le3, text3);
@@ -146,7 +129,7 @@ int main(){
     littleEnigmaSet(le5, password5);
     //printf("\n\n");
 
-    printf("✅TESTS littleEnigmaDecrypt()\n");
+    printf("littleEnigmaDecrypt()\n");
     char* decode1 = littleEnigmaDecrypt(le1, code1);
     char* decode2 = littleEnigmaDecrypt(le2, code2);
     char* decode3 = littleEnigmaDecrypt(le3, code3);
@@ -157,12 +140,7 @@ int main(){
     printf("%s -> %s -> %s\n\n", text3, code3, decode3);
     printf("%s -> %s -> %s\n\n", text4, code4, decode4);
     printf("%s -> %s -> %s\n\n", text5, code5, decode5);
-/*
-    if(code) free(code);
-    if(decode) free(decode);
-
-    littleEnigmaDelete(le);
-*/    
+  
     littleEnigmaDelete(le1);
     littleEnigmaDelete(le2);
     littleEnigmaDelete(le3);
@@ -180,5 +158,13 @@ int main(){
     free(decode4);
     free(decode5);
     
+    // Liberar la memoria asignada a 'w1', 'w2' y 'w3'
+    wheelDelete(w1);
+    wheelDelete(w2);
+    wheelDelete(w3);
+    wheelDelete(w4);
+    wheelDelete(w5);
+    wheelDelete(w6);
+    wheelDelete(w7);
 
 }

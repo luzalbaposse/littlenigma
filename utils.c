@@ -152,26 +152,25 @@ void rotateWheel(struct wheel* w, int steps) {
     }
 }
 
-void rotateWheels(struct wheel** w, int count) {
+void rotateWheels(struct wheel** wheels, int wheelsCount) {
     /*
-    Requiere: w es un puntero a un arreglo de punteros a estructuras wheel inicializadas. count es 
-    un entero positivo.
+    Requiere: wheels es un puntero a un arreglo de punteros a estructuras wheel inicializadas.
     Devuelve: nada.
-    Mueve el puntero first de la lista la cantidad de steps pasados por parámetro. No retorna ningún valor, ya que modifica la estructura w.
+    Mueve el puntero first de cada estructura wheel la cantidad de veces indicada por el índice de
     */
-    int i = 0;
-    int j = 0;
-    rotateWheel(w[0], 1);
-    if (w[0]->first->position == 0) {
-        while(i<count){
-            rotateWheel(w[i+1], 1);
-            if (w[i+1]->first->position == 0){
-                        i++;
-            } else{
-                break;
-            }
-        }
-    }
+	int i = 0;
+	int seguir = 1;
+	struct wheel* curr_wheel;
+	while (i < wheelsCount && seguir){ // Mientras no se haya llegado al final del arreglo y no se haya llegado a la primera posición de la rueda
+		curr_wheel = wheels[i];
+		rotateWheel(curr_wheel, 1);
+		if ((curr_wheel->first)->position != 0){
+			seguir = 0;
+		}
+		i++;
+	}
+	
+	return;
 }
 
 void wheelDelete(struct wheel* w) {
