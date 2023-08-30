@@ -66,93 +66,37 @@ int main(){
 
     // littleEnigma
     printf("littleEnigmaDecrypt y Encrypt\n");
-      // Configuración del conjunto de rotores y la máquina Enigma
-    char* rotorAlphabets[3];
-    rotorAlphabets[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
-    rotorAlphabets[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
-    rotorAlphabets[2] = "QYHOGNECVPUZTFDJAXWMKISRBL";
+    char* alphabetPermutation[2];
+    alphabetPermutation[0] = "JGDQOXUSCAMIFRVTPNEWKBLZYH";
+    alphabetPermutation[1] = "NTZPSFBOKMWRCJDIVLAEYUXHGQ";
+    struct littleEnigma* le = littleEnigmaNew(alphabetPermutation, 2);
+    littleEnigmaPrint(le);
+    printf("\n\n");
 
-    struct littleEnigma* le = littleEnigmaNew(rotorAlphabets, 3);
+    int password[2] = { 3, 5 };
+    littleEnigmaSet(le, password);
+    littleEnigmaPrint(le);
+    printf("\n\n");
 
-    // Caso 1: Encriptar y desencriptar un mensaje de 0 caracteres
-    int password1[3] = { 0, 0, 0 };
-    littleEnigmaSet(le, password1);
-    char* text1 = "";
-    char* code1 = littleEnigmaEncrypt(le, text1);
-    char* decode1 = littleEnigmaDecrypt(le, code1);
+    char* text = "TEXT";
+    char* code = littleEnigmaEncrypt(le, text);
+    littleEnigmaPrint(le);
+    printf("%s -> %s\n\n", text, code);
 
-    printf("Caso 1:\n");
-    printf("Mensaje original: %s\n", text1);
-    printf("Mensaje encriptado: %s\n", code1);
-    printf("Mensaje desencriptado: %s\n\n", decode1);
+    littleEnigmaSet(le, password);
+    littleEnigmaPrint(le);
+    printf("\n\n");
 
-    if (code1) free(code1);
-    if (decode1) free(decode1);
+    char* decode = littleEnigmaDecrypt(le, code);
+    littleEnigmaPrint(le);
+    printf("%s -> %s -> %s\n\n", text, code, decode);
 
-    // Caso 2: Encriptar y desencriptar un mensaje de 35 caracteres iguales con una máquina de un solo disco
-    int password2[3] = { 1, 2, 0 }; // Usar los rotores 1 y 2, rotor 3 en posición 0
-    littleEnigmaSet(le, password2);
-    char* text2 = "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
-    char* code2 = littleEnigmaEncrypt(le, text2);
-    char* decode2 = littleEnigmaDecrypt(le, code2);
+    if(code) free(code);
+    if(decode) free(decode);
 
-    printf("Caso 2:\n");
-    printf("Mensaje original: %s\n", text2);
-    printf("Mensaje encriptado: %s\n", code2);
-    printf("Mensaje desencriptado: %s\n\n", decode2);
-
-    if (code2) free(code2);
-    if (decode2) free(decode2);
-
-    // Caso 3: Encriptar y desencriptar un mensaje de 10 caracteres con una máquina de tres discos
-    int password3[3] = { 2, 1, 0 }; // Usar los rotores 2, 1 y 0
-    littleEnigmaSet(le, password3);
-    char* text3 = "ALANTURING";
-    char* code3 = littleEnigmaEncrypt(le, text3);
-    char* decode3 = littleEnigmaDecrypt(le, code3);
-
-    printf("Caso 3:\n");
-    printf("Mensaje original: %s\n", text3);
-    printf("Mensaje encriptado: %s\n", code3);
-    printf("Mensaje desencriptado: %s\n\n", decode3);
-
-    if (code3) free(code3);
-    if (decode3) free(decode3);
-
-    // Caso 4: Encriptar y desencriptar un mensaje de 10 caracteres con una máquina de cinco discos
-    int password4[3] = { 0, 2, 1 }; // Usar los rotores 0, 2 y 1
-    littleEnigmaSet(le, password4);
-    char* text4 = "NIELSBOHR";
-    char* code4 = littleEnigmaEncrypt(le, text4);
-    char* decode4 = littleEnigmaDecrypt(le, code4);
-
-    printf("Caso 4:\n");
-    printf("Mensaje original: %s\n", text4);
-    printf("Mensaje encriptado: %s\n", code4);
-    printf("Mensaje desencriptado: %s\n\n", decode4);
-
-    if (code4) free(code4);
-    if (decode4) free(decode4);
-
-    // Caso 5: Encriptar y desencriptar un mensaje de 10 caracteres con una máquina de ocho discos
-    int password5[3] = { 1, 0, 2 }; // Usar los rotores 1, 0 y 2
-    littleEnigmaSet(le, password5);
-    char* text5 = "MARIECURIE";
-    char* code5 = littleEnigmaEncrypt(le, text5);
-    char* decode5 = littleEnigmaDecrypt(le, code5);
-
-    printf("Caso 5:\n");
-    printf("Mensaje original: %s\n", text5);
-    printf("Mensaje encriptado: %s\n", code5);
-    printf("Mensaje desencriptado: %s\n\n", decode5);
-
-    if (code5) free(code5);
-    if (decode5) free(decode5);
-
-    // Liberar la memoria asignada a 'le'
     littleEnigmaDelete(le);
-   
-    // Liberar la memoria asignada a 'w1', 'w2' 'w3' etc
+
+    // Liberar la memoria asignada a 'w1', 'w2' y 'w3'
     wheelDelete(w1);
     wheelDelete(w2);
     wheelDelete(w3);
@@ -160,5 +104,4 @@ int main(){
     wheelDelete(w5);
     wheelDelete(w6);
 
-    return 0;
 }
